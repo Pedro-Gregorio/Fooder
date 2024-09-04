@@ -8,14 +8,12 @@ export default function Notification({ open, close, children }) {
 
   useEffect(() => {
     if (open) {
-      dialog.current.show(); // Use show() instead of showModal()
-      console.log("TIMER SET");
+      dialog.current.show();
       const timer = setTimeout(() => {
         dialog.current.close();
       }, TIMER);
 
       return () => {
-        console.log("Cleaning up timer");
         clearTimeout(timer);
       };
     } else {

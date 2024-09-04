@@ -55,8 +55,6 @@ export default function Checkout() {
         },
       })
     );
-
-    console.log(data);
   }
 
   let actions = (
@@ -79,7 +77,6 @@ export default function Checkout() {
   }
 
   if (data.message && !error) {
-    console.log(data);
     return (
       <Modal open={userCtx.progress === "checkout"} onClose={handleFinish}>
         <h2 className="modal-title mb-4">Success!</h2>

@@ -55,46 +55,49 @@ export default function Cart() {
       <div className="mt-8">
         <ul className="space-y-4">
           {cartCtx.items.map((item) => (
-            <>
-              <li key={item.id} className="flex justify-between">
-                <div className="flex justify-center items-center gap-4">
+            <li
+              key={item.id}
+              className="flex justify-between pb-4 border border-b-tertiary"
+            >
+              <div className="flex justify-center items-center gap-4">
+                <img
+                  src={"http://localhost:3000/" + item.image}
+                  alt=""
+                  className="w-24 h-24 rounded-xl"
+                />
+                <div>
+                  <h3 className="text-lg font-bold">{item.name}</h3>
+                  {currencyFormatter.format(
+                    calculateFinalPrice(item.price, item.quantity)
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <Button
+                  className="btn-checkout"
+                  onClick={() => cartCtx.addItem(item)}
+                >
                   <img
-                    src={"http://localhost:3000/" + item.image}
-                    alt=""
-                    className="w-24 h-24 rounded-xl"
+                    src="add.svg"
+                    alt="Add Meal"
+                    className="hover:stroke-black"
                   />
-                  <div>
-                    <h3 className="text-lg font-bold">{item.name}</h3>
-                    {currencyFormatter.format(
-                      calculateFinalPrice(item.price, item.quantity)
-                    )}
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Button
-                    className="btn-checkout"
-                    onClick={() => cartCtx.addItem(item)}
-                  >
-                    <img
-                      src="add.svg"
-                      alt="Add Meal"
-                      className="hover:stroke-black"
-                    />
-                  </Button>
-                  <span className="text-lg">{item.quantity}</span>
-                  <Button
-                    className="btn-checkout"
-                    onClick={() => cartCtx.removeItem(item.id)}
-                  >
-                    <img src="remove.svg" alt="Remove Meal" />
-                  </Button>
-                  <Button onClick={() => handleRemoveItem(item.id)} className="hover:text-secondary">
-                    Remove
-                  </Button>
-                </div>
-              </li>
-              <p className="border border-b-tertiary"></p>
-            </>
+                </Button>
+                <span className="text-lg">{item.quantity}</span>
+                <Button
+                  className="btn-checkout"
+                  onClick={() => cartCtx.removeItem(item.id)}
+                >
+                  <img src="remove.svg" alt="Remove Meal" />
+                </Button>
+                <Button
+                  onClick={() => handleRemoveItem(item.id)}
+                  className="hover:text-secondary"
+                >
+                  Remove
+                </Button>
+              </div>
+            </li>
           ))}
         </ul>
         <p className="text-end text-lg text-secondary font-bold mt-4">

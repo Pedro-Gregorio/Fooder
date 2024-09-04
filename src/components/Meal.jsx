@@ -5,21 +5,41 @@ import CartContext from "../store/CartContext";
 import Notification from "./UI/Notification";
 
 export default function Meal({ meal }) {
-  const [buttonText, setButtonText] = useState("🛒 Add to Cart");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const cartCtx = useContext(CartContext);
-
-  function handleMouseEnter() {
-    setButtonText("👀 Add to Cart");
-  }
-
-  function handleMouseLeave() {
-    setButtonText("🛒 Add to Cart");
-  }
 
   function handleAddMeal() {
     cartCtx.addItem(meal);
     setModalIsOpen(true);
+  }
+
+  const mealIndex = cartCtx.items.findIndex(
+    (cartMeal) => cartMeal.name === meal.name
+  );
+
+  function buttonContent() {
+    if (mealIndex !== -1) {
+      return (
+        <div className="w-full bg-tertiary px-4 py-2 rounded-lg flex justify-between items-center gap-4">
+          <Button onClick={() => cartCtx.addItem(meal)}>
+            <img src="add.svg" alt="Add Meal" className="w-6 h-6" />
+          </Button>
+          <span>Added: {cartCtx.items.at(mealIndex).quantity}</span>
+          <Button onClick={() => cartCtx.removeItem(meal.id)}>
+            <img src="remove.svg" alt="Add Meal" className="w-6 h-6" />
+          </Button>
+        </div>
+      );
+    } else {
+      return (
+        <Button
+          onClick={handleAddMeal}
+          className="button bg-secondary text-accent w-full"
+        >
+          🛒 Add to Cart
+        </Button>
+      );
+    }
   }
 
   return (
@@ -41,14 +61,7 @@ export default function Meal({ meal }) {
             <p className="m-4 text-accent">{meal.description}</p>
           </div>
           <div className="flex items-center justify-between px-4 mb-6">
-            <Button
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onClick={handleAddMeal}
-              className="button bg-secondary text-accent w-full"
-            >
-              {buttonText}
-            </Button>
+            {buttonContent()}
           </div>
         </article>
       </li>

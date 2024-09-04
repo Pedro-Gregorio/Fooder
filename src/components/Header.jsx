@@ -12,7 +12,6 @@ export default function Header() {
 
   function handleCartClick() {
     userCtx.showCart();
-    console.log(userCtx.progress);
   }
 
   return (

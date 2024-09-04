@@ -13,10 +13,7 @@ export default function AvailableMeals() {
     error,
   } = useHttp("http://localhost:3000/meals", requestConfig, []);
 
-  // console.log(availableMeals);
-
   function handleFilterSelection(selection) {
-    console.log(selection);
     setFilter(selection);
   }
 

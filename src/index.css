@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button {
+    @apply py-2 px-4 rounded-md border border-primary transition duration-200 hover:bg-tertiary hover:text-primary;
+  }
+
+  .btn-filter {
+    @apply py-2 px-4 rounded-md text-accent border border-primary transition duration-200;
+  }
+
+  .btn-checkout {
+    @apply rounded-full w-6 h-6 flex justify-center items-center transition duration-200;
+  }
+
+  .modal-title {
+    @apply text-2xl text-primary font-bold uppercase;
+  }
+}
